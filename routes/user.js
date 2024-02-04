@@ -1,9 +1,10 @@
-const express = require("express");
-const authenticate = require("../middleware/authenticate");
+import express from "express";
 const userRoute = express.Router();
-const { getUser } = require("../controller/user");
+import authenticate from "../middleware/authenticate.js";
+import { getUser, updateUser } from "../controller/user.js";
 
-// To test if users are created on mongodb
+// To test if users are created and updated on mongodb
 userRoute.get("/", authenticate, getUser);
+userRoute.post("/", authenticate, updateUser);
 
-module.exports = userRoute;
+export default userRoute;

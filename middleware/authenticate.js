@@ -1,15 +1,13 @@
-const firebaseAdmin = require("../services/service_account");
-const userModel = require("../models/users");
+import auth from "../services/service_account.js";
+import userModel from "../models/users.js";
 
-module.exports = authenticate = async (req, res, next) => {
+const authenticate = async (req, res, next) => {
   try {
     const firebaseToken = req.headers.authorization?.split(" ")[1];
 
     let firebaseUser;
     if (firebaseToken) {
-      firebaseUser = await firebaseAdmin.auth.verifyIdToken(firebaseToken);
-      // console.log("firebase-user", firebaseUser);
-      // console.log("role", firebaseUser.role);
+      firebaseUser = await auth.verifyIdToken(firebaseToken);
     }
 
     if (!firebaseUser) {
@@ -25,8 +23,8 @@ module.exports = authenticate = async (req, res, next) => {
         name: firebaseUser.name,
         email: firebaseUser.email,
         firebaseId: firebaseUser.user_id,
+        photoUrl: firebaseUser.picture,
       });
-      // res.sendStatus(401);
     }
 
     req.user = user;
@@ -34,6 +32,8 @@ module.exports = authenticate = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    res.sendStatus(401);
+    res.status(401).json({ message: error?.errorInfo?.message });
   }
 };
+
+export default authenticate;

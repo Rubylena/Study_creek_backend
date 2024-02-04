@@ -1,5 +1,7 @@
-const admin = require("firebase-admin");
-require("dotenv").config();
+import { initializeApp, cert } from "firebase-admin/app";
+import { getAuth } from "firebase-admin/auth";
+import dotenv from "dotenv";
+dotenv.config();
 
 const serviceAccountJson = {
   type: process.env.TYPE,
@@ -16,10 +18,9 @@ const serviceAccountJson = {
   universe_domain: process.env.UNIVERSE_DOMAIN,
 };
 
-const firebase = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccountJson),
+const app = initializeApp({
+  credential: cert(serviceAccountJson),
 });
 
-module.exports = {
-  auth: firebase.auth(),
-};
+const auth = getAuth(app);
+export default auth;

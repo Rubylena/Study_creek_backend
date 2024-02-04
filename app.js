@@ -1,14 +1,15 @@
-const express = require("express");
-const connectToDB = require("./config/db_config");
-const cors = require("cors");
-require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import connectToMongoDb from "./config/db_config.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
-const userRoute = require("./routes/user");
+import userRoute from "./routes/user.js";
 
 const app = express();
-connectToDB();
+connectToMongoDb();
 app.use(cors({ origin: true }));
 app.use(express.json());
 

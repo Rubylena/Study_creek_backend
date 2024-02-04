@@ -1,5 +1,7 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+
 const URL = process.env.MONGO_DB_CONNECTION_URL;
 
 const connectToMongoDb = () => {
@@ -13,4 +15,4 @@ const connectToMongoDb = () => {
   });
 };
 
-module.exports = connectToMongoDb;
+export default connectToMongoDb;
