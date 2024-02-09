@@ -11,7 +11,7 @@ import userRoute from "./routes/user.js";
 
 const app = express();
 connectToMongoDb();
-app.use(cors());
+app.use(cors({origin: ["http://localhost:3000", "https://studycreek.netlify.app/"]}));
 // app.use(cors({ origin: true }));
 app.use(express.json());
 app.use(helmet());
