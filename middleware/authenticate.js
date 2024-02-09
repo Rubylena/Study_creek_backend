@@ -18,7 +18,7 @@ const authenticate = async (req, res, next) => {
       firebaseId: firebaseUser.user_id,
     });
 
-    if (!user) {
+    if (!user && user.email !== firebaseUser.email) {
       user = await userModel.create({
         name: firebaseUser.name,
         email: firebaseUser.email,
