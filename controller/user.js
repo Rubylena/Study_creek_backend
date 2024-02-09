@@ -23,6 +23,7 @@ const updateUser = async (req, res) => {
     const updatedUser = await users.findOneAndUpdate(userId, body, {
       returnDocument: "after",
     });
+
     updatedUser
       ? res
           .status(200)
@@ -42,7 +43,7 @@ const setRole = async (req, res) => {
 
     const userId = { firebaseId: req.user.firebaseId };
 
-    const updated = await users.findOneAndUpdate(userId, role, {
+    const updated = await users.findOneAndUpdate(userId, {role: role}, {
       returnDocument: "after",
     });
 
