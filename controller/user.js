@@ -39,7 +39,7 @@ const setRole = async (req, res) => {
   try {
     const role = req.body.role;
 
-    !role && res.send(400).json({ message: "role is required." });
+    !role && res.status(400).json({ message: "role is required." });
 
     const userId = { firebaseId: req.user.firebaseId };
 
