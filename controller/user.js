@@ -38,14 +38,19 @@ const updateUser = async (req, res) => {
 const setRole = async (req, res) => {
   try {
     const role = req.body.role;
+    console.log(role);
 
-    !role && res.status(400).json({ message: "role is required." });
+    // !role && res.status(400).json({ message: "role is required." });
 
     const userId = { firebaseId: req.user.firebaseId };
 
-    const updated = await users.findOneAndUpdate(userId, {role: role}, {
-      returnDocument: "after",
-    });
+    const updated = await users.findOneAndUpdate(
+      userId,
+      { role: role },
+      {
+        returnDocument: "after",
+      }
+    );
 
     updated
       ? res
